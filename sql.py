@@ -3,22 +3,13 @@ import mysql.connector
 import pandas as pd
 import plotly.express as px
 
-# ---------------------------------
-# PAGE CONFIGURATION
-# ---------------------------------
-
 st.set_page_config(
     page_title="E-Commerce Analytics",
-    page_icon="📊",
     layout="wide"
 )
 
 st.title("E-Commerce Business Intelligence")
 st.caption("Sales Analytics Dashboard")
-
-# ---------------------------------
-# DATABASE CONNECTION
-# ---------------------------------
 
 def get_connection():
     return mysql.connector.connect(
@@ -31,20 +22,12 @@ def get_connection():
         autocommit=True
     )
 
-# ---------------------------------
-# SQL DATA FETCH FUNCTION
-# ---------------------------------
-
 def fetch_data(query):
     connection = get_connection()
     try:
         return pd.read_sql(query, connection)
     finally:
         connection.close()
-
-# ---------------------------------
-# DASHBOARD
-# ---------------------------------
 
 try:
 
@@ -101,7 +84,6 @@ try:
         x="month",
         y="revenue",
         markers=True,
-        title="Monthly Revenue Trend"
     )
 
     st.plotly_chart(fig1, use_container_width=True)
@@ -125,7 +107,6 @@ try:
         top_products,
         x="product_name",
         y="total_sold",
-        title="Top Selling Products"
     )
 
     st.plotly_chart(fig2, use_container_width=True)
@@ -150,7 +131,6 @@ try:
         category,
         names="category_name",
         values="revenue",
-        title="Revenue by Category"
     )
 
     st.plotly_chart(fig3, use_container_width=True)
@@ -174,7 +154,6 @@ try:
         city,
         x="city",
         y="revenue",
-        title="Revenue by City"
     )
 
     st.plotly_chart(fig4, use_container_width=True)
